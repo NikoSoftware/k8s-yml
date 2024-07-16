@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dep-dev
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-deployment
+  namespace: dep-dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dep-nginx
+  template:
+    metadata:
+      labels:
+        app: dep-nginx
+    spec:
+      containers:
+        - name: contain-nginx
+          image: nginx
+
