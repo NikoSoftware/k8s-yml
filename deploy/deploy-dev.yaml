@@ -24,3 +24,19 @@ spec:
         - name: contain-nginx
           image: nginx
 
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dep-service
+  namespace: dep-dev
+spec:
+  type: ClusterIP
+  sessionAffinity: None
+  selector:
+    app: dep-nginx
+  ports:
+    - port: 3320
+      targetPort: 80
+
