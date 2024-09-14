@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  drawio:
+    image: jgraph/drawio  # 使用官方的draw.io镜像
+    container_name: drawio
+    ports:
+      - "7080:8080"  # 映射容器的8080端口到宿主机的8080端口
+    environment:
+      #      - DRAWIO_BASE_URL=http://localhost  # 设置draw.io的基础URL（可选）
+      - DRAWIO_DEBUG=0  # 设置debug模式，0为关闭（可选）
+    restart: always  # 设置容器总是重新启动
+    volumes:
+      - /opt/data/drawio/data:/usr/local/tomcat/webapps/draw

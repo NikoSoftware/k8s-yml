@@ -1,0 +1,40 @@
+
+version: '3'
+services:
+  joplin_service:
+    container_name: Joplin
+    image: joplin/server:latest
+    ports:
+      - "22300:22300"
+    environment:
+      APP_PORT: 22300
+      APP_BASE_URL: http://117.175.149.226:22300
+      DB_CLIENT: pg
+      POSTGRES_PASSWORD: root1234
+      POSTGRES_DATABASE: joplin
+      POSTGRES_USER: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: postgres_db
+    networks:
+      - app-network
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root1234
+      POSTGRES_DB: joplin
+    ports:
+      - "6432:5432"
+    volumes:
+      - /opt/data/postgres/data:/var/lib/postgresql/data
+      - /opt/data/postgres/log:/var/log/postgresql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
